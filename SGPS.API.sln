@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33516.290
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SgpsAPI", "SgpsAPI\SgpsAPI.csproj", "{AE0102EB-E208-462C-8367-E691ED68D4B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infra", "Infra\Infra.csproj", "{C3394940-D5A9-49CE-934F-62818C0FDEA8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Itens de Solução", "Itens de Solução", "{499FF0FE-08D3-4553-8D9C-27D7D91C8726}"
+	ProjectSection(SolutionItems) = preProject
+		nuget.config = nuget.config
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AE0102EB-E208-462C-8367-E691ED68D4B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE0102EB-E208-462C-8367-E691ED68D4B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE0102EB-E208-462C-8367-E691ED68D4B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE0102EB-E208-462C-8367-E691ED68D4B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3394940-D5A9-49CE-934F-62818C0FDEA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3394940-D5A9-49CE-934F-62818C0FDEA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3394940-D5A9-49CE-934F-62818C0FDEA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3394940-D5A9-49CE-934F-62818C0FDEA8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BAD10DE1-9F73-4B9D-A2A9-DCE6838498FC}
+	EndGlobalSection
+EndGlobal
