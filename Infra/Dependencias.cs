@@ -14,9 +14,9 @@ namespace Infra
         public static void ConfigurarServices(IConfiguration configuration, IServiceCollection services)
         {
             var connString = configuration["ConnectionStrings:SafDbSqlServer"];
+            connString += configuration["DbSenha"];
             services.AddDbContext<SgpsDbContexto>(options =>
                 options
-                //.UseLazyLoadingProxies()
                 .UseSqlServer(connString)
             );
             services.AddScoped(typeof(IServicoBase<>), typeof(ServicoBase<>));

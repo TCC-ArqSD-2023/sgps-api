@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using GisaDominio.Entidades;
+using Infra.Contextos.DbMap;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +18,10 @@ namespace Infra.Contextos
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.HasDefaultSchema("sgps");
+
+            new TipoExameDbMap(modelBuilder.Entity<TipoExame>());
+            new ExameDbMap(modelBuilder.Entity<Exame>());
+            new ConsultaDbMap(modelBuilder.Entity<Consulta>());
         }
     }
 }
