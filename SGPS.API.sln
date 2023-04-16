@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Itens de Solução", "Itens
 		nuget.config = nuget.config
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Servicos", "Servicos\Servicos.csproj", "{90A7CE70-EB3F-4A56-896B-590616BF4BAC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{C3394940-D5A9-49CE-934F-62818C0FDEA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3394940-D5A9-49CE-934F-62818C0FDEA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3394940-D5A9-49CE-934F-62818C0FDEA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90A7CE70-EB3F-4A56-896B-590616BF4BAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90A7CE70-EB3F-4A56-896B-590616BF4BAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90A7CE70-EB3F-4A56-896B-590616BF4BAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90A7CE70-EB3F-4A56-896B-590616BF4BAC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

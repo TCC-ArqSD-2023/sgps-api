@@ -1,3 +1,5 @@
+using Infra;
+
 namespace SgpsAPI
 {
     public class Program
@@ -13,14 +15,19 @@ namespace SgpsAPI
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+
+            Dependencias.ConfigurarServices(builder.Configuration, builder.Services);
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
+            //if (app.Environment.IsDevelopment())
+            //{
+            //}
                 app.UseSwagger();
                 app.UseSwaggerUI();
-            }
 
             app.UseHttpsRedirection();
 
