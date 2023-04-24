@@ -14,7 +14,7 @@ namespace Infra
     {
         public static void ConfigurarServices(IConfiguration configuration, IServiceCollection services)
         {
-            var connString = configuration["ConnectionStrings:SafDbSqlServer"];
+            var connString = configuration["ConnectionStrings:SgpsDbSqlServer"];
             connString += configuration["DbSenha"];
             services.AddDbContext<SgpsDbContexto>(options =>
                 options
