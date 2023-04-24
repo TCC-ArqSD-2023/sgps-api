@@ -3,16 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SgpsAPI", "SgpsAPI\SgpsAPI.csproj", "{AE0102EB-E208-462C-8367-E691ED68D4B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SgpsAPI", "SgpsAPI\SgpsAPI.csproj", "{AE0102EB-E208-462C-8367-E691ED68D4B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infra", "Infra\Infra.csproj", "{C3394940-D5A9-49CE-934F-62818C0FDEA8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infra", "Infra\Infra.csproj", "{C3394940-D5A9-49CE-934F-62818C0FDEA8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Itens de Solução", "Itens de Solução", "{499FF0FE-08D3-4553-8D9C-27D7D91C8726}"
 	ProjectSection(SolutionItems) = preProject
 		nuget.config = nuget.config
+		.github\workflows\SgpsApi.yml = .github\workflows\SgpsApi.yml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Servicos", "Servicos\Servicos.csproj", "{90A7CE70-EB3F-4A56-896B-590616BF4BAC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Servicos", "Servicos\Servicos.csproj", "{90A7CE70-EB3F-4A56-896B-590616BF4BAC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,0 +1,52 @@
+name: Compilar e implantar o aplicativo .NET Core no aplicativo Web SgpsApi
+on:
+  push:
+    branches:
+    - main
+env:
+  AZURE_WEBAPP_NAME: SgpsApi
+  AZURE_WEBAPP_PACKAGE_PATH: SgpsAPI/publish
+  CONFIGURATION: Release
+  DOTNET_CORE_VERSION: 6.0.x
+  WORKING_DIRECTORY: SgpsAPI
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
+    - name: Configurar nuget
+      run: dotnet nuget add source https://nuget.pkg.github.com/TCC-ArqSD-2023/index.json -n github -u dinobri -p ${DINOBRIPAT_NUGET} --store-password-in-clear-text
+      env:
+        DINOBRIPAT_NUGET: ${{ secrets.DINOBRIPAT_NUGET }}
+    - name: Restore
+      run: dotnet restore "${{ env.WORKING_DIRECTORY }}"
+    - name: Build
+      run: dotnet build "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-restore
+    - name: Test
+      run: dotnet test "${{ env.WORKING_DIRECTORY }}" --no-build
+    - name: Publish
+      run: dotnet publish "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-build --output "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
+    - name: Publish Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: webapp
+        path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+    - name: Download artifact from build job
+      uses: actions/download-artifact@v3
+      with:
+        name: webapp
+        path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+    - name: Deploy to Azure WebApp
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: ${{ env.AZURE_WEBAPP_NAME }}
+        publish-profile: ${{ secrets.SgpsApi_981C }}
+        package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}

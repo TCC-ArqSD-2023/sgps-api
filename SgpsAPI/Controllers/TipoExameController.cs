@@ -10,7 +10,7 @@ namespace SgpsAPI.Controllers
     [Route("tipoExame")]
     public class TipoExameController : ControladorCrudBase<TipoExame, TipoExame>
     {
-        public TipoExameController(ILogger<ControladorCrudBase<TipoExame, TipoExame>> logger, IServicoCrudBase<TipoExame> servico, IMapper mapper) : base(logger, servico, mapper)
+        public TipoExameController(ILogger<TipoExameController> logger, IServicoCrudBase<TipoExame> servico, IMapper mapper) : base(logger, servico, mapper)
         {
         }
     }

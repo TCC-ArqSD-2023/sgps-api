@@ -10,7 +10,7 @@ namespace SgpsAPI.Controllers
     [Route("consulta")]
     public class ConsultaController : ControladorCrudBase<Consulta, Consulta>
     {
-        public ConsultaController(ILogger<ControladorCrudBase<Consulta, Consulta>> logger, IServicoCrudBase<Consulta> servico, IMapper mapper) : base(logger, servico, mapper)
+        public ConsultaController(ILogger<ConsultaController> logger, IServicoCrudBase<Consulta> servico, IMapper mapper) : base(logger, servico, mapper)
         {
         }
     }
