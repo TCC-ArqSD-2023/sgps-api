@@ -17,9 +17,14 @@ namespace SgpsAPI.Profiles
 
 
             CreateMap<ExameDTO, Exame>()
-                .ReverseMap();
+                .ReverseMap()
+                .ForMember(e => e.TipoExameNome, opt => opt.MapFrom(e => e.TipoExame.Nome))
+                .ForMember(e => e.ConveniadoNome, opt => opt.MapFrom(e => e.Conveniado.Nome))
+                .ForMember(e => e.PacienteNome, opt => opt.MapFrom(e => e.Paciente == null ? null : e.Paciente.Nome + " " + e.Paciente.Sobrenome));
             CreateMap<ConsultaDTO, Consulta>()
-                .ReverseMap();
+                .ReverseMap()
+                .ForMember(c => c.PrestadorNome, opt => opt.MapFrom(e => e.Prestador.Nome))
+                .ForMember(c => c.PacienteNome, opt => opt.MapFrom(e => e.Paciente.Nome));
         }
     }
 }

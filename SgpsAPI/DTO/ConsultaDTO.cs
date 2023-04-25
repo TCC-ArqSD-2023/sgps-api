@@ -1,4 +1,5 @@
-﻿using GisaDominio.Enum;
+﻿using GisaDominio.Entidades;
+using GisaDominio.Enum;
 
 namespace SgpsAPI.DTO
 {
@@ -8,7 +9,9 @@ namespace SgpsAPI.DTO
         public DateTime Inicio { get; set; }
         public DateTime Fim { get; set; }
         public long PrestadorId { get; set; }
+        public string? PrestadorNome { get; set; }
         public long? PacienteId { get; set; }
+        public string? PacienteNome { get; set; }
         public SituacaoAtendimentoEnum? Situacao { get; set; }
     }
 }

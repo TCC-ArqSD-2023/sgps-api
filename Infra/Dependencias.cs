@@ -3,6 +3,7 @@ using GisaApiArq.Servicos;
 using GisaDominio.Entidades;
 using Infra.ClientesRest;
 using Infra.Contextos;
+using Infra.Repositorios;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions;
 using Microsoft.Extensions.Configuration;
@@ -20,6 +21,7 @@ namespace Infra
                 options
                 .UseSqlServer(connString)
             );
+            services.AddScoped(typeof(IRepositorioCrudBase<Exame>), typeof(ExameRepositorio));
             services.AddScoped(typeof(IRepositorioBase<>), typeof(RepositorioBase<>));
             services.AddScoped(typeof(IRepositorioCrudBase<>), typeof(RepositorioCrudBase<>));
             services.AddScoped<DbContext, SgpsDbContexto>();
