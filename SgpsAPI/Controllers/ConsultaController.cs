@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using GisaApiArq.API;
-using GisaApiArq.Servicos;
 using GisaDominio.Entidades;
+using GisaDominio.Interfaces.Servicos;
 using Microsoft.AspNetCore.Mvc;
 using SgpsAPI.DTO;
 
@@ -11,8 +11,13 @@ namespace SgpsAPI.Controllers
     [Route("consulta")]
     public class ConsultaController : ControladorCrudBase<Consulta, ConsultaDTO>
     {
-        public ConsultaController(ILogger<ConsultaController> logger, IServicoCrudBase<Consulta> servico, IMapper mapper) : base(logger, servico, mapper)
+        protected new readonly IConsultaServico _servico;
+
+        public ConsultaController(ILogger<ConsultaController> logger, IConsultaServico servico, IMapper mapper) : base(logger, servico, mapper)
         {
+            _servico = servico;
         }
+
+        
     }
 }

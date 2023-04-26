@@ -2,7 +2,9 @@
 using GisaApiArq.API;
 using GisaApiArq.Servicos;
 using GisaDominio.Entidades;
+using GisaDominio.Interfaces.Servicos;
 using Microsoft.AspNetCore.Mvc;
+using Servicos;
 using SgpsAPI.DTO;
 
 namespace SgpsAPI.Controllers
@@ -11,26 +13,41 @@ namespace SgpsAPI.Controllers
     [Route("exame")]
     public class ExameController : ControladorCrudBase<Exame, ExameDTO>
     {
-        public ExameController(ILogger<ExameController> logger, IServicoCrudBase<Exame> servico, IMapper mapper) : base(logger, servico, mapper)
+        protected new readonly IExameServico _servico;
+
+        public ExameController(ILogger<ExameController> logger, IExameServico servico, IMapper mapper) : base(logger, servico, mapper)
         {
+            _servico = servico;
         }
 
 
+        [HttpPost("agendarExame")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(List<FluentResults.Error>), StatusCodes.Status500InternalServerError)]
+        public IActionResult AgendarExame([FromBody] AgendarExameDTO dto)
+        {
+            _logger.LogInformation($"Acionado recurso {nameof(AgendarExame)}.");
+            var resultado = _servico.AgendarExame(dto.ExameId, dto.PacienteId);
 
-        //[HttpPost("{intervalo}/{quantidade}")]
-        //[ProducesResponseType(StatusCodes.Status201Created)]
-        //[ProducesResponseType(typeof(List<FluentResults.Error>), StatusCodes.Status500InternalServerError)]
-        //public IActionResult Inserir([FromBody] ExameDTO primeiro, [FromRoute] int intervalo = 30, [FromRoute] int quantidade = 1)
-        //{
-        //    _logger.LogInformation($"Acionado recurso {nameof(Inserir)}.");
-        //    var resultado = _servico.Inserir(converterDTO(primeiro));
+            if (resultado.IsFailed)
+                return retornarErroGenerico(resultado.Errors.Select(e => e.Message));
 
-        //    if (resultado.IsFailed)
-        //        return retornarErroGenerico(resultado.Errors);
+            return NoContent();
+        }
 
-        //    var entidade = resultado.Value;
 
-        //    return CreatedAtAction(nameof(ObterPorId), new { id = entidade.Id }, entidade);
-        //}
+        [HttpPost("autorizarExame")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(List<FluentResults.Error>), StatusCodes.Status500InternalServerError)]
+        public IActionResult AutorizarExame([FromBody] long exameId)
+        {
+            _logger.LogInformation($"Acionado recurso {nameof(AutorizarExame)}.");
+            var resultado = _servico.AutorizarExame(exameId);
+
+            if (resultado.IsFailed)
+                return retornarErroGenerico(resultado.Errors.Select(e => e.Message));
+
+            return NoContent();
+        }
     }
 }
