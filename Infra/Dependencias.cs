@@ -21,12 +21,14 @@ namespace Infra
                 options
                 .UseSqlServer(connString)
             );
+
+            services.AddScoped(typeof(IRepositorioCrudBase<Associado>), typeof(AssociadoRepositorio));
             services.AddScoped(typeof(IRepositorioCrudBase<Exame>), typeof(ExameRepositorio));
             services.AddScoped(typeof(IRepositorioBase<>), typeof(RepositorioBase<>));
             services.AddScoped(typeof(IRepositorioCrudBase<>), typeof(RepositorioCrudBase<>));
             services.AddScoped<DbContext, SgpsDbContexto>();
 
-            services.AddSingleton<SafRestClient>();
+            services.AddSingleton<SafRestClientOptions>();
         }
     }
 }

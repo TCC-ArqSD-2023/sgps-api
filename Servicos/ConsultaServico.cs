@@ -16,13 +16,24 @@ namespace Servicos
 {
     public class ConsultaServico : ServicoCrudBase<Consulta>, IConsultaServico
     {
-        public ConsultaServico(ILogger<ConsultaServico> logger, IRepositorioCrudBase<Consulta> repositorio, IMapper mapper) : base(logger, repositorio, mapper)
+        private readonly IServicoCrudBase<Associado> _associadoServico;
+
+        public ConsultaServico(
+            ILogger<ConsultaServico> logger, 
+            IRepositorioCrudBase<Consulta> repositorio, 
+            IMapper mapper,
+            IServicoCrudBase<Associado> associadoServico) : base(logger, repositorio, mapper)
         {
+            this._associadoServico = associadoServico;
         }
 
         public Result AgendarConsulta(long consultaId, long associadoId)
         {
-            // TODO: validar associadoId
+            var resultadoAssociado = _associadoServico.ObterPorId(associadoId);
+            if (resultadoAssociado.IsFailed || resultadoAssociado.Value == null)
+                return Result.Fail(resultadoAssociado.Errors);
+            if (resultadoAssociado.Value.Situacao != SituacaoAssociadoEnum.Ativo)
+                return Result.Fail("O associado não pode agendar consultas pois está " + Enum.GetName(resultadoAssociado.Value.Situacao) + ".");
 
             var resultadoConsulta = ObterPorId(consultaId);
 

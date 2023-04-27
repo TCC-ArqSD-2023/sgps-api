@@ -1,4 +1,5 @@
 ﻿using GisaApiArq.Servicos;
+using GisaDominio.Entidades;
 using GisaDominio.Interfaces.Servicos;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

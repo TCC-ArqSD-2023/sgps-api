@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using GisaApiArq.API;
+using GisaApiArq.Dominio.Erros;
 using GisaApiArq.Servicos;
 using GisaDominio.Entidades;
 using GisaDominio.Interfaces.Servicos;
@@ -20,9 +21,9 @@ namespace SgpsAPI.Controllers
             _servico = servico;
         }
 
-
-        [HttpPost("agendarExame")]
+        [HttpPost("agendar")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(List<FluentResults.Error>), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(List<FluentResults.Error>), StatusCodes.Status500InternalServerError)]
         public IActionResult AgendarExame([FromBody] AgendarExameDTO dto)
         {
@@ -30,14 +31,19 @@ namespace SgpsAPI.Controllers
             var resultado = _servico.AgendarExame(dto.ExameId, dto.PacienteId);
 
             if (resultado.IsFailed)
+            {
+                if (resultado.HasError<NaoEncontradoError>())
+                    return NotFound(resultado.Errors.Select(e => e.Message));
                 return retornarErroGenerico(resultado.Errors.Select(e => e.Message));
+            }
 
             return NoContent();
         }
 
 
-        [HttpPost("autorizarExame")]
+        [HttpPost("autorizar")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(List<FluentResults.Error>), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(List<FluentResults.Error>), StatusCodes.Status500InternalServerError)]
         public IActionResult AutorizarExame([FromBody] long exameId)
         {
@@ -45,7 +51,11 @@ namespace SgpsAPI.Controllers
             var resultado = _servico.AutorizarExame(exameId);
 
             if (resultado.IsFailed)
+            {
+                if (resultado.HasError<NaoEncontradoError>())
+                    return NotFound(resultado.Errors.Select(e => e.Message));
                 return retornarErroGenerico(resultado.Errors.Select(e => e.Message));
+            }
 
             return NoContent();
         }

@@ -16,13 +16,25 @@ namespace Servicos
 {
     public class ExameServico : ServicoCrudBase<Exame>, IExameServico
     {
-        public ExameServico(ILogger<ExameServico> logger, IRepositorioCrudBase<Exame> repositorio, IMapper mapper) : base(logger, repositorio, mapper)
+        private readonly IServicoCrudBase<Associado> _associadoServico;
+
+        public ExameServico(
+            ILogger<ExameServico> logger, 
+            IRepositorioCrudBase<Exame> repositorio, 
+            IMapper mapper,
+            IServicoCrudBase<Associado> associadoServico) : base(logger, repositorio, mapper)
         {
+            this._associadoServico = associadoServico;
         }
 
         public Result AgendarExame(long exameId, long associadoId)
         {
-            // TODO: validar associadoId
+            var resultadoAssociado = _associadoServico.ObterPorId(associadoId);
+            if (resultadoAssociado.IsFailed || resultadoAssociado.Value == null)
+                return Result.Fail(resultadoAssociado.Errors);
+            if (resultadoAssociado.Value.Situacao != SituacaoAssociadoEnum.Ativo)
+                return Result.Fail("O associado não pode agendar exames pois está "+ Enum.GetName(resultadoAssociado.Value.Situacao) + ".");
+
 
             var resultadoExame = ObterPorId(exameId);
 
@@ -42,7 +54,6 @@ namespace Servicos
 
         public Result AutorizarExame(long exameId)
         {
-            // valida se está agendado
             var resultadoExame = ObterPorId(exameId);
 
             if (resultadoExame.IsFailed || resultadoExame.Value == null)
@@ -52,7 +63,7 @@ namespace Servicos
 
             if (exame.Situacao != SituacaoAtendimentoEnum.AguardandoAutorizacao || 
                 exame.PacienteId == null)
-                return Result.Fail("Não é possível autorizar este exame pois ainda não foi agendado para um paciente.");
+                return Result.Fail("Não é possível autorizar este exame pois não foi agendado para um paciente.");
 
             exame.Situacao = SituacaoAtendimentoEnum.Agendado;
 
